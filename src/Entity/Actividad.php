@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ActividadRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ActividadRepository::class)]
@@ -15,76 +13,50 @@ class Actividad
     #[ORM\Column]
     private ?int $id = null;
 
-    /**
-     * @var Collection<int, viajeros>
-     */
-    #[ORM\OneToMany(targetEntity: viajeros::class, mappedBy: 'id_actividad')]
-    private Collection $viajero_id;
+    #[ORM\Column(length: 255)]
+    private ?string $nombre = null;
 
     #[ORM\Column]
-    private ?\DateTime $fechahora = null;
+    private ?\DateTime $fecha_hora = null;
 
     #[ORM\Column(length: 255)]
     private ?string $lugar = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\Column]
+    private ?\DateTime $created_at = null;
 
-    public function __construct()
-    {
-        $this->viajero_id = new ArrayCollection();
-    }
+    #[ORM\Column]
+    private ?\DateTime $updated_at = null;
+
+    #[ORM\ManyToOne(inversedBy: 'actividads')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(int $id): static
+    public function getNombre(): ?string
     {
-        $this->id = $id;
+        return $this->nombre;
+    }
+
+    public function setNombre(string $nombre): static
+    {
+        $this->nombre = $nombre;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, viajeros>
-     */
-    public function getViajeroId(): Collection
+    public function getFechaHora(): ?\DateTime
     {
-        return $this->viajero_id;
+        return $this->fecha_hora;
     }
 
-    public function addViajeroId(viajeros $viajeroId): static
+    public function setFechaHora(\DateTime $fecha_hora): static
     {
-        if (!$this->viajero_id->contains($viajeroId)) {
-            $this->viajero_id->add($viajeroId);
-            $viajeroId->setIdActividad($this);
-        }
-
-        return $this;
-    }
-
-    public function removeViajeroId(viajeros $viajeroId): static
-    {
-        if ($this->viajero_id->removeElement($viajeroId)) {
-            // set the owning side to null (unless already changed)
-            if ($viajeroId->getIdActividad() === $this) {
-                $viajeroId->setIdActividad(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getFechahora(): ?\DateTime
-    {
-        return $this->fechahora;
-    }
-
-    public function setFechahora(\DateTime $fechahora): static
-    {
-        $this->fechahora = $fechahora;
+        $this->fecha_hora = $fecha_hora;
 
         return $this;
     }
@@ -101,14 +73,38 @@ class Actividad
         return $this;
     }
 
-    public function getName(): ?string
+    public function getCreatedAt(): ?\DateTime
     {
-        return $this->name;
+        return $this->created_at;
     }
 
-    public function setName(string $name): static
+    public function setCreatedAt(\DateTime $created_at): static
     {
-        $this->name = $name;
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTime
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTime $updated_at): static
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
