@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <h1>User</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ user.password }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ user.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Apellidos</th>
+                <td>{{ user.apellidos }}</td>
+            </tr>
+            <tr>
+                <th>Referencia</th>
+                <td>{{ user.referencia }}</td>
+            </tr>
+            <tr>
+                <th>Telefono</th>
+                <td>{{ user.telefono }}</td>
+            </tr>
+            <tr>
+                <th>Procedencia</th>
+                <td>{{ user.procedencia }}</td>
+            </tr>
+            <tr>
+                <th>Foto</th>
+                <td>{{ user.foto }}</td>
+            </tr>
+            <tr>
+                <th>Destino_ida</th>
+                <td>{{ user.destinoIda }}</td>
+            </tr>
+            <tr>
+                <th>Transporte_ida</th>
+                <td>{{ user.transporteIda }}</td>
+            </tr>
+            <tr>
+                <th>Salida_time_ida</th>
+                <td>{{ user.salidaTimeIda ? user.salidaTimeIda|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Llegada_time_ida</th>
+                <td>{{ user.llegadaTimeIda ? user.llegadaTimeIda|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Lugar_vuelta</th>
+                <td>{{ user.lugarVuelta }}</td>
+            </tr>
+            <tr>
+                <th>Transporte_vuelta</th>
+                <td>{{ user.transporteVuelta }}</td>
+            </tr>
+            <tr>
+                <th>Salida_time_vuelta</th>
+                <td>{{ user.salidaTimeVuelta ? user.salidaTimeVuelta|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Llegada_time_vuelta</th>
+                <td>{{ user.llegadaTimeVuelta ? user.llegadaTimeVuelta|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated_at</th>
+                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_index') }}">back to list</a>
+
+    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+
+    {{ include('user/_delete_form.html.twig') }}
+{% endblock %}

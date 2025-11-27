@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <h1>User index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Referencia</th>
+                <th>Telefono</th>
+                <th>Procedencia</th>
+                <th>Foto</th>
+                <th>Destino_ida</th>
+                <th>Transporte_ida</th>
+                <th>Salida_time_ida</th>
+                <th>Llegada_time_ida</th>
+                <th>Lugar_vuelta</th>
+                <th>Transporte_vuelta</th>
+                <th>Salida_time_vuelta</th>
+                <th>Llegada_time_vuelta</th>
+                <th>Created_at</th>
+                <th>Updated_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.nombre }}</td>
+                <td>{{ user.apellidos }}</td>
+                <td>{{ user.referencia }}</td>
+                <td>{{ user.telefono }}</td>
+                <td>{{ user.procedencia }}</td>
+                <td>{{ user.foto }}</td>
+                <td>{{ user.destinoIda }}</td>
+                <td>{{ user.transporteIda }}</td>
+                <td>{{ user.salidaTimeIda ? user.salidaTimeIda|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.llegadaTimeIda ? user.llegadaTimeIda|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.lugarVuelta }}</td>
+                <td>{{ user.transporteVuelta }}</td>
+                <td>{{ user.salidaTimeVuelta ? user.salidaTimeVuelta|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.llegadaTimeVuelta ? user.llegadaTimeVuelta|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="21">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_new') }}">Create new</a>
+{% endblock %}
